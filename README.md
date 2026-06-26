@@ -2,43 +2,53 @@
 
 > The smallest programming language ever made — using only dots and spaces.
 
-![DotSpace Logo](logo.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Language](https://img.shields.io/badge/made%20with-dots-brightgreen)
 
-DotSpace is an esoteric programming language where every command is written using **only periods (`.`) and blanks**. It's Turing-complete and compiles down to Brainfuck-style operations.
+DotSpace is an esoteric programming language where every command is written using only periods and blanks. It is Turing-complete and compiles down to Brainfuck-style operations.
 
-## ✨ Features
+## Features
 
-- Only 2 characters needed: `.` and ` `
+- Only 2 characters needed: dot and space
 - Turing-complete
 - Written in Python
 - Runs anywhere Python runs
 - Perfect for confusing your friends
 
-## 📦 Installation
+## Installation
 
-```bash
-git clone https://github.com/fireostech/dotspace.git
-cd dotspace
-chmod +x install.sh
-./install.sh
+    git clone https://github.com/Fire-technolagy/dotspace.git
+    cd dotspace
+    chmod +x install.sh
+    ./install.sh
 
-Save with `CTRL+X`, `Y`, `Enter`.
+## Usage
 
----
+    dotspace hello.ds
 
-### Step 2: Create the repo on GitHub
+## Language Reference
 
-1. Go to **https://github.com/new**
-2. Repository name: **`dotspace`**
-3. Description: **`The smallest programming language - made with only dots and spaces`**
-4. Set to **Public**
-5. **DON'T** check "Add README"
-6. Click **Create repository**
+| Dots | Command | Meaning |
+|:---|:---|:---|
+| 1 dot | > | Move pointer right |
+| 2 dots | < | Move pointer left |
+| 3 dots | + | Increment memory |
+| 4 dots | - | Decrement memory |
+| 5 dots | . | Print as ASCII |
+| 6 dots | , | Read input |
+| 7 dots | [ | Start loop |
+| 8 dots | ] | End loop |
 
----
+## Example: Print "Hi"
 
-### Step 3: Configure git with your info
+A program that prints "Hi" looks like this (only dots and spaces):
 
-```bash
-git config --global user.name "fireostech"
-git config --global user.email "fireostech@gmail.com"
+    ... ... ... ... ... ... ... ... ... ....... . ... ... ... ... ... ... ... ... .. .... ........ . ..... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... .....
+
+## License
+
+MIT License — Do whatever you want with it!
+
+## Author
+
+Made by **Fire-technolagy**
