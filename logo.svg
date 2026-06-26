@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 630" width="630" height="630">
+  <!-- Background square (like JS yellow, but hacker green) -->
+  <rect width="630" height="630" fill="#39d353"/>
+  
+  <!-- Big bold "DS" text in corner -->
+  <text x="590" y="560" 
+        font-family="'Courier New', monospace" 
+        font-size="180" 
+        font-weight="900" 
+        fill="#0d1117" 
+        text-anchor="end">DS</text>
+  
+  <!-- Dots pattern in top-left -->
+  <circle cx="80" cy="80" r="18" fill="#0d1117"/>
+  <circle cx="140" cy="80" r="18" fill="#0d1117"/>
+  <circle cx="200" cy="80" r="18" fill="#0d1117"/>
+  
+  <circle cx="80" cy="140" r="18" fill="#0d1117"/>
+  <circle cx="140" cy="140" r="18" fill="#0d1117" opacity="0.3"/>
+  <circle cx="200" cy="140" r="18" fill="#0d1117"/>
+  
+  <circle cx="80" cy="200" r="18" fill="#0d1117"/>
+  <circle cx="140" cy="200" r="18" fill="#0d1117"/>
+  <circle cx="200" cy="200" r="18" fill="#0d1117" opacity="0.3"/>
+</svg>
