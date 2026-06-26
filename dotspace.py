@@ -7,6 +7,7 @@ def execute(code):
     loop_map = {}
     temp_stack = []
 
+    # Map out the loops before running
     for i, char in enumerate(code):
         if char == '[': temp_stack.append(i)
         elif char == ']':
@@ -14,24 +15,36 @@ def execute(code):
             loop_map[start] = i
             loop_map[i] = start
 
+    # Run the compiled instructions
     while pc < len(code):
         c = code[pc]
         if c == '>': ptr += 1
         elif c == '<': ptr -= 1
         elif c == '+': tape[ptr] = (tape[ptr] + 1) % 256
         elif c == '-': tape[ptr] = (tape[ptr] - 1) % 256
-        elif c == '.': sys.stdout.write(chr(tape[ptr]))
-        elif c == ',': tape[ptr] = ord(sys.stdin.read(1))
+        elif c == '.': 
+            sys.stdout.write(chr(tape[ptr]))
+            sys.stdout.flush()  # Forces the terminal to print immediately
+        elif c == ',': 
+            char = sys.stdin.read(1)
+            if char: tape[ptr] = ord(char)
         elif c == '[' and tape[ptr] == 0: pc = loop_map[pc]
         elif c == ']' and tape[ptr] != 0: pc = loop_map[pc]
         pc += 1
+        
+    print()  # Add a newline at the very end so your terminal prompt looks clean
 
 def run_dotspace(filename):
-    with open(filename, 'r') as f:
-        content = f.read()
+    try:
+        with open(filename, 'r') as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' not found.")
+        sys.exit(1)
 
     compiled_code = ""
 
+    # Convert DotSpace into Brainfuck logic
     for cluster in content.split():
         count = cluster.count('.')
         if count == 1: compiled_code += '>'
@@ -46,17 +59,18 @@ def run_dotspace(filename):
     execute(compiled_code)
 
 if __name__ == '__main__':
+    # If no file is provided, show the logo and help menu
     if len(sys.argv) < 2:
-        print("""
-        \033[32m
-              .      
-            . . .    
-          .   .   .  
-        . . . . . . .
-          .   .   .  
-            . . .    
-              .      
-        \033[0m
-        DotSpace Esoteric Language
-        Usage: python3 dotspace.py <your_file.ds>
+        print("""\033[32m
+      .      
+    . . .    
+  .   .   .  
+. . . . . . .
+  .   .   .  
+    . . .    
+      .      \033[0m
+DotSpace Esoteric Language
+Usage: dotspace <your_file.ds>
         """)
+    else:
+        run_dotspace(sys.argv[1])
