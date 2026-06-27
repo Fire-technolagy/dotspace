@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DotSpace 🟢 - The Smallest Programming Language</title>
+    <meta name="description" content="DotSpace is a Turing-complete programming language that uses only dots and spaces. Created by Fire-Tech.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%2339d353%22/></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background dots */
+        .bg-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: -1;
+            background-image: radial-gradient(#39d353 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: drift 60s linear infinite;
+        }
+        
+        @keyframes drift {
+            from { background-position: 0 0; }
+            to { background-position: 300px 300px; }
+        }
+        
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        h1 {
+            font-size: 4rem;
+            color: #39d353;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(57, 211, 83, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #8b949e;
+            margin-bottom: 30px;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .badge {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .badge.green { border-color: #39d353; color: #39d353; }
+        .badge.blue { border-color: #58a6ff; color: #58a6ff; }
+        .badge.red { border-color: #f85149; color: #f85149; }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #39d353;
+            color: #0d1117;
+        }
+        
+        .btn-primary:hover {
+            background: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(57, 211, 83, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #c9d1d9;
+            border: 2px solid #30363d;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #39d353;
+            color: #39d353;
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            color: #39d353;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Code blocks */
+        .code-block {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-block code {
+            color: #39d353;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .code-label {
+            color: #8b949e;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Command table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #161b22;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        th {
+            background: #21262d;
+            color: #39d353;
+        }
+        
+        td:first-child {
+            color: #39d353;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Demo box */
+        .demo-program {
+            background: #161b22;
+            border: 2px solid #39d353;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .demo-program .dots {
+            font-size: 1.2rem;
+            color: #39d353;
+            word-break: break-all;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+        
+        .demo-program .output {
+            font-size: 3rem;
+            color: white;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        /* Video embed */
+        .video-container {
+            position: relative;
+            padding-bottom: 177.78%; /* 9:16 ratio for Shorts */
+            max-width: 400px;
+            margin: 20px auto;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+        }
+        
+        footer a {
+            color: #39d353;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .logo { font-size: 3rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-dots"></div>
+    
+    <!-- HERO -->
+    <div class="hero">
+        <div class="logo">🟢</div>
+        <h1>DotSpace</h1>
+        <p class="tagline">The smallest programming language ever made</p>
+        <p class="tagline" style="font-size: 1rem;">Only dots and spaces. Turing complete.</p>
+        
+        <div class="badges">
+            <span class="badge green">v1.0</span>
+            <span class="badge blue">Turing Complete</span>
+            <span class="badge red">2 Characters</span>
+            <span class="badge green">MIT License</span>
+        </div>
+        
+        <div class="cta-buttons">
+            <a href="https://github.com/Fire-technolagy/dotspace" class="btn btn-primary">⭐ Star on GitHub</a>
+            <a href="#install" class="btn btn-secondary">📥 Install</a>
+        </div>
+    </div>
+    
+    <!-- WHAT IS IT -->
+    <section>
+        <h2>🤯 What Is This?</h2>
+        <p style="font-size: 1.2rem; text-align: center; max-width: 700px; margin: 0 auto;">
+            DotSpace is a <strong style="color: #39d353;">Turing-complete programming language</strong> that uses ONLY two characters: a period (<code style="color: #39d353;">.</code>) and a blank space.
+        </p>
+        <p style="font-size: 1.2rem; text-align: center; margin-top: 20px;">
+            No letters. No numbers. No symbols. Just dots and spaces.
+        </p>
+        <p style="font-size: 1.5rem; text-align: center; margin-top: 30px; color: #39d353;">
+            And somehow, it can compute anything. 🤖
+        </p>
+    </section>
+    
+    <!-- LIVE DEMO -->
+    <section>
+        <h2>🎬 See It In Action</h2>
+        <div class="demo-program">
+            <div class="code-label">This program:</div>
+            <div class="dots">... ... ... ... ... ... ... ... ... ....... . ... ... ... ... ... ... ... ... .. .... ........ . ..... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... .....</div>
+            <div class="code-label">Prints:</div>
+            <div class="output">Hi</div>
+        </div>
+    </section>
+    
+    <!-- INSTALL -->
+    <section id="install">
+        <h2>⚡ Install in 4 Commands</h2>
+        <div class="code-block">
+            <div class="code-label">Terminal</div>
+            <code>git clone https://github.com/Fire-technolagy/dotspace.git
+cd dotspace
+chmod +x install.sh
+./install.sh</code>
+        </div>
+        <p style="text-align: center; margin-top: 20px;">Then run any DotSpace file:</p>
+        <div class="code-block">
+            <code>dotspace hello.ds</code>
+        </div>
+    </section>
+    
+    <!-- COMMAND TABLE -->
+    <section>
+        <h2>📖 The Entire Language</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Only 8 commands. That's the whole language.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dots</th>
+                    <th>Equivalent</th>
+                    <th>What It Does</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>.</td><td>&gt;</td><td>Move pointer right</td></tr>
+                <tr><td>..</td><td>&lt;</td><td>Move pointer left</td></tr>
+                <tr><td>...</td><td>+</td><td>Add 1 to memory</td></tr>
+                <tr><td>....</td><td>-</td><td>Subtract 1 from memory</td></tr>
+                <tr><td>.....</td><td>.</td><td>Print as ASCII character</td></tr>
+                <tr><td>......</td><td>,</td><td>Read input</td></tr>
+                <tr><td>.......</td><td>[</td><td>Start loop</td></tr>
+                <tr><td>........</td><td>]</td><td>End loop</td></tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <!-- THE LAW -->
+    <section>
+        <h2>⚖️ The DotSpace Law</h2>
+        <div class="demo-program">
+            <p style="font-size: 1.5rem; color: #39d353;">
+                "Only dots and blanks. EVER."
+            </p>
+            <p style="margin-top: 20px;">
+                Forks that add new symbols are NOT DotSpace. Please rename them.<br>
+                <strong>The minimalism is the magic.</strong> 🪄
+            </p>
+        </div>
+    </section>
+    
+    <!-- WATCH VIDEO (placeholder) -->
+    <section>
+        <h2>📺 Watch the Video</h2>
+        <p style="text-align: center; margin-bottom: 20px;">See DotSpace in action on the Fire-Tech YouTube channel!</p>
+        <div style="text-align: center;">
+            <a href="https://www.youtube.com/@Fire-Technolagy" class="btn btn-primary">🔥 Visit Fire-Tech YouTube</a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <p>🟢 <strong>DotSpace</strong> — Made with dots by <a href="https://github.com/Fire-technolagy">Fire-Tech</a></p>
+        <p style="margin-top: 10px;">MIT License • Open Source Forever</p>
+        <p style="margin-top: 20px; font-size: 1.5rem;">⭐ <a href="https://github.com/Fire-technolagy/dotspace">Star on GitHub</a> ⭐</p>
+    </footer>
+</body>
+</html>
